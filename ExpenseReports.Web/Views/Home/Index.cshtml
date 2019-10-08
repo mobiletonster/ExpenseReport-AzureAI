@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .hero1 {
+        animation: fadein 1s;
+        background-image: url('/img/expenses-istock_000019265699small11.jpg');
+        background-color: rgba(0, 123, 255, 0.5);
+        background-blend-mode: darken;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 230px;
+        position: relative;
+    }
+
+    .logo {
+        width: 60px;
+        grid-column-start: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        text-align: right;
+        margin-top:10px;
+    }
+
+    .hero-text {
+        color: orange;
+        top: 20%;
+        bottom: 20%;
+        position: relative;
+        padding: 5px;
+    }
+
+    .hero-text-title {
+        color: #075769;
+        background-color: rgba(255, 255, 255, 0.90);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        border-radius: 30em;
+        display: grid;
+        grid-template-columns: 1fr 2fr 5fr;
+        vertical-align: middle;
+        width:360px;
+    }
+
+    .hero-text-title-row1 {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        margin-top:0;
+        margin-bottom:0
+    }
+
+    .hero-text-title-row2 {
+        grid-column-start: 3;
+        grid-row-start: 2;
+    }
+
+    .section1 {
+        animation: fadein 2s;
+        background-color: #430243;
+        height: 650px;
+    }
+
+    .section1-text {
+        color: white;
+        padding: 15px;
+    }
+
+        .section1-text a {
+            text-decoration: none;
+            color: white;
+        }
+
+            .section1-text a:hover {
+                color: yellow;
+            }
+
+     .scrapbook {
+         display:grid;
+         grid-template-columns:1fr 3fr 3fr 1fr;
+         justify-content:center;
+     }
+     .scrapbook-left{
+         grid-column:2;
+         margin-left:auto;
+         margin-right:auto;
+     }
+
+     .scrapbook-right {
+         grid-column:3;
+                  color:greenyellow;
+         padding:10px;
+         vertical-align:middle;
+     }
+     .hook{
+         color:orange;
+     }
+
+    .section2 {
+        animation: fadein 1s;
+        background-color: #089abb;
+        height: 400px;
+    }
+
+    .section2-text {
+        color: white;
+        padding: 15px;
+    }
+</style>
+
+<section class="hero1">
+    <div class="hero-text">
+        <div class="hero-text-title">
+            <img class="logo" src="~/img/logo.png" />
+            <h1 class="hero-text-title-row1">MODEX</h1>
+            <p class="hero-text-title-row2">Modern Expense Reporting</p>
+        </div>
+
+    </div>
+</section>
+<section class="section1">
+    <div class="section1-text">
+        <p></p>
+        <h2 class="text-center hook">Are you tired of receipt scrapbooking?</h2>
+        <div class="scrapbook">
+            <img class="scrapbook-left" src="~/img/ReceiptScrapbook.jpg" width="275" />
+            <h4 class="scrapbook-right">Does your organization require you to scrapbook your receipts in order to file your expense reports? <br /><br /> Tell them its time to modernize!</h4>
+        </div>
+        <p></p>
+        <h2 class="text-center"><a href="/try">Try MODEX Now!</a></h2>
+    </div>
+</section>
+<section class="section2">
+    <div class="section2-text">
+        <h2>We want to keep it simple, from usage to pricing!</h2>
+        <p>MODEX delivers the best value of any Modern Expense Reporting service!</p>
+    </div>
+</section>

@@ -1,0 +1,149 @@
+﻿/*font-family: 'Titillium Web', sans-serif;
+font-family: 'Indie Flower', cursive;
+font-family: 'Cabin', sans-serif;
+font-family: 'Dancing Script', cursive;*/
+
+
+.avatar {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+body {
+    animation: fadein 0.25s;
+    padding-top: 56px;
+}
+
+h1 {
+    font-family: 'Titillium Web', sans-serif;
+}
+
+h2 {
+    font-family: 'Cabin', sans-serif;
+}
+
+.body-content {
+    padding-bottom: 60px;
+    margin-bottom: 10px;
+    font-family: 'Cabin', sans-serif;
+}
+
+.btn-toggle {
+    margin: 0 4rem;
+    padding: 0;
+    position: relative;
+    border: none;
+    height: 1.5rem;
+    width: 3rem;
+    border-radius: 1.5rem;
+    color: #6b7381;
+    background: #bdc1c8;
+}
+
+    .btn-toggle:focus,
+    .btn-toggle.focus,
+    .btn-toggle:focus.active,
+    .btn-toggle.focus.active {
+        outline: none;
+    }
+
+    .btn-toggle:before,
+    .btn-toggle:after {
+        line-height: 1.5rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: absolute;
+        bottom: 0;
+        transition: opacity 0.25s;
+    }
+
+    .btn-toggle:before {
+        content: 'Off';
+        left: -2rem;
+    }
+
+    .btn-toggle:after {
+        content: 'On';
+        right: -2rem;
+        opacity: 0.5;
+    }
+
+    .btn-toggle > .handle {
+        position: absolute;
+        top: 0.1875rem;
+        left: 0.1875rem;
+        width: 1.125rem;
+        height: 1.125rem;
+        border-radius: 1.125rem;
+        background: #fff;
+        transition: left 0.25s;
+    }
+
+    .btn-toggle.active {
+        transition: background-color 0.25s;
+    }
+
+        .btn-toggle.active > .handle {
+            left: 1.6875rem;
+            transition: left 0.25s;
+        }
+
+        .btn-toggle.active:before {
+            opacity: 0.5;
+        }
+
+        .btn-toggle.active:after {
+            opacity: 1;
+        }
+
+    .btn-toggle:before,
+    .btn-toggle:after {
+        color: inherit;
+    }
+
+    .btn-toggle.active {
+        background-color: #007bff;
+    }
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+.fade {
+    animation: fadein 0.75s;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.show {
+    display: block;
+}

@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .body-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .receipt-processing{
+        display:grid;
+        grid-template-columns: 1fr 2fr;
+    }
+    #left-column {
+        grid-column:1;
+    }
+    #right-column{
+        grid-column:2;
+    }
+    .drop-zone {
+        border: 1px dashed blue;
+        border-radius:5px;
+        background-color:whitesmoke;
+        width: 200px;
+        height: 80px;
+        padding:10px;
+    }
+
+    .drag-over {
+        border: 2px solid red;
+        background-color: lightyellow;
+    }
+
+    .preview-image {
+        background-color: lightgray;
+        min-height: 20px;
+        margin-top: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .fa-spinner {
+        color:orange;
+    }
+    .fa-check {
+        color:forestgreen;
+    }
+
+    .action-list li {
+        list-style:none;
+    }
+
+    #item1, #item2, #item3 {
+        display:none;
+    }
+</style>
+<section class="body-content">
+    <h1>Try uploading a receipt!</h1>
+    <div class="receipt-processing">
+        <div id="left-column">
+            <div id="drop_zone" class="drop-zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event)">
+                <p>Drag a receipt file here ...</p>
+                <a href="javascript:void(0)" onclick="select();">Upload File </a>
+            </div>
+            <input id="fileselector" type="file" onchange="fileSelected(this)" style="display:none;" />
+            <div id="file_list">
+
+            </div>
+            <p>
+                <button id="saveButton" class="btn btn-primary" onclick="save()" style="display:none">Upload and process receipt</button>
+                <div class='spinner' style="display:none"><div class='bounce1'></div><div class='bounce2'></div><div class='bounce3'></div></div>
+            </p>
+        </div>
+        <div id="right-column" style="display:none;">
+            <h3>Here it is:</h3>
+            <ul class="action-list">
+                <li id="item1"><i class="fas fa-spinner"></i> Uploading Image</li>
+                <li id="item2"><i class="fas fa-spinner"></i> Analyzing Receipt</li>
+                <li id="item3"><i class="fas fa-spinner"></i> Retreiving Analysis</li>
+            </ul>
+            <div id="output">
+
+            </div>
+        </div>
+    </div>
+</section>
+<template id="image-preview-template">
+    <img id='{{filename}}' class='preview-image' height='280'/>
+    <p>{{filename}}  <span>{{filetype}}</span></p>
+</template>
+
+<script type="text/javascript">
+    var files = [];
+    function dropHandler(ev) {
+        console.log('File(s) dropped');
+
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+
+        if (ev.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            if (ev.dataTransfer.items[0].kind === 'file') {
+                var file = ev.dataTransfer.items[0].getAsFile();
+                console.log('... file[0].name = ' + file.name);
+                files = [];
+                files.push(file);
+            } else {
+                console.log(ev.dataTransfer.items[0]);
+            }
+        } else {
+            // Use DataTransfer interface to access the file(s)
+            console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[0].name);
+            files = [];
+            files = ev.dataTransfer.files[0];
+        }
+
+        loadFileList();
+        ev.currentTarget.classList.remove("drag-over");
+    }
+    function dragOverHandler(ev) {
+        console.log('File(s) in drop zone');
+        ev.currentTarget.classList.add("drag-over");
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+    }
+    function dragLeaveHandler(ev) {
+        ev.currentTarget.classList.remove("drag-over");
+    }
+    function select() {
+        var fileselector = document.getElementById("fileselector");
+        fileselector.click();
+    }
+    function fileSelected(fileselector) {
+        files = [];
+        files.push(fileselector.files[0]);
+        loadFileList();
+        fileselector.value = "";
+    }
+    function loadFileList() {
+            var reader = new FileReader();
+
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    if (theFile.type.startsWith('image')) {
+                        document.getElementById(theFile.name).setAttribute('src', e.target.result);
+                    }
+                };
+            })(files[0]);
+
+            reader.readAsDataURL(files[0]);
+            var template = document.getElementById("image-preview-template").innerHTML;
+            var merged = template.replace("{{filename}}", files[0].name)
+                .replace("{{filename}}", files[0].name)
+                .replace("{{filetype}}", files[0].type);
+
+        document.getElementById("file_list").innerHTML = merged;
+        if (files) {
+            document.getElementById('saveButton').style.display = 'block';
+        }
+    }
+    function clearFileList() {
+        files = [];
+        loadFileList();
+    }
+    function setSpin(item) {
+        item.classList.remove('fa-check');
+        item.classList.add("fa-spinner");
+        item.classList.add('fa-spin');
+    }
+    function setCheck(item) {
+                item.classList.remove('fa-spinner');
+                item.classList.remove('fa-spin');
+                item.classList.add('fa-check');
+    }
+
+    function save() {
+        document.getElementById('saveButton').style.display = 'none';
+        document.getElementById('right-column').style.display = 'block';
+        var item = document.querySelector('#item1 i');
+        setSpin(item);
+        document.querySelector('#item1').style.display = 'block';
+        var data = new FormData()
+        data.append('receiptFile', files[0], files[0].name);
+
+        fetch('/receipts', {
+            method: 'POST',
+            body: data
+        }).then(resp => resp.text())
+            .then(data => {
+                console.log(data);
+                // clearFileList();
+                setCheck(item);
+                analyze(data);
+            });
+    }
+
+    function analyze(filename) {
+        var item = document.querySelector('#item2 i');
+        setSpin(item);
+        document.querySelector('#item2').style.display = 'block';
+
+        fetch(`/analyze/${filename}`, {
+            method: 'GET'
+        }).then(resp => resp.text())
+            .then(data => {
+                console.log(data);
+                setCheck(item);
+                showAnalysis(data);
+            });
+    }
+
+    function showAnalysis(operationId) {
+        var item = document.querySelector('#item3 i');
+        setSpin(item);
+        document.querySelector('#item3').style.display = 'block';
+
+        fetch(`/analyze/${operationId}/results`, {
+            method: 'GET'
+        }).then(resp => resp.text())
+            .then(data => {
+                setCheck(item);
+                document.getElementById("output").innerHTML = data;
+            });
+    }
+</script>
+

@@ -1,0 +1,39 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using ExpenseReports.Services
+@{ 
+    var ur = Model as AnalysisResults;
+    var fields = ur.understandingResults[0].fields;
+}
+    <table class="table">
+        <tr>
+            <td>Merchant Name</td>
+            <td>@fields.MerchantName?.text</td>
+        </tr>
+        <tr>
+            <td>Merchant Phone</td>
+            <td>@fields.MerchantPhoneNumber?.text</td>
+        </tr>
+        <tr>
+            <td>Subtotal</td>
+            <td>@fields.Subtotal?.text</td>
+        </tr>
+        <tr>
+            <td>Tax</td>
+            <td>@fields.Tax?.text</td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td>@fields.Total?.text</td>
+        </tr>
+        <tr>
+            <td>Transaction Date</td>
+            <td>@fields.TransactionDate?.text</td>
+        </tr>
+        <tr>
+            <td>Transaction Time</td>
+            <td>@fields.TransactionTime?.text</td>
+        </tr>
+    </table>

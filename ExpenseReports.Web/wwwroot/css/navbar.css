@@ -1,0 +1,58 @@
+﻿nav {
+    background-color: rgba(7, 93, 41, 0.84);
+    position: fixed;
+    top: 0;
+    z-index: 350;
+    width: 100%;
+}
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        /*overflow: hidden;*/
+        padding: 0;
+        z-index: 300;
+    }
+
+    nav li {
+        float: left;
+    }
+
+.navbar-logo {
+    height: 36px;
+    /*padding: 8px 12px 8px 12px;*/
+    width: 36px;
+    margin: 10px;
+}
+
+nav .dropdown-item:hover, .dropdown-item:focus {
+    color: rgba(35, 10, 57, 0.5);
+}
+
+nav .user {
+    color: #ddd;
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+}
+
+nav li a {
+    color: #ddd;
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+}
+
+    /* Change the link color to #111 (black) on hover */
+
+    nav li a:hover {
+        color: #fff;
+        text-decoration: none;
+        /*border-bottom: solid 3px green;*/
+        /*margin-top: -3px;*/
+    }
+
+nav .active > a {
+    /*border-bottom: solid 3px orange;*/
+}

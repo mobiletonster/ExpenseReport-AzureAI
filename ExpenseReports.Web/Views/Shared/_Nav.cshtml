@@ -1,0 +1,67 @@
+﻿@{
+    string avatar = User.Claims.FirstOrDefault(m => m.Type == "avatar")?.Value;
+    //var appUser = User.ToAppUser();
+}
+    <nav>
+        <ul>
+            <li>
+                <img class="navbar-logo" src="~/img/logo.png" />
+            </li>
+            <li id="home" class="link active">
+                <a href="/">MODEX</a>
+            </li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li id="pricing" class="link">
+                    <a href="/pricing">Pricing</a>
+                </li>
+                <li id="join" class="link">
+                    <a href="/join">Join</a>
+                </li>
+                <li id="login" class="link" style="float: right; margin-right: 10px;">
+                    <a href="/login">Login</a>
+                </li>
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(avatar))
+                {
+                    <li style="float: right;">
+                        <img src="@avatar" class="avatar" />
+                    </li>
+                }
+
+                <li style="float: right; margin-right: 10px; padding: 7px 16px;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="name-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
+                            <div class="dropdown-menu" aria-labelledby="name-dropdown">
+                                <a class="dropdown-item" href="~/manage/client">Profile</a>
+                                <a class="dropdown-item" href="~/manage/smsprofile">Settings</a>
+                                <a class="dropdown-item" href="~/logout">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </nav>
+@*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Modern Expense Reports</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>*@
